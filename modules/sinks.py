@@ -26,7 +26,7 @@ def run_sinks(data: str, out_dir: Path, silent=False):
         with open(base / "js_sinks_advanced.txt", "w", encoding="utf-8") as fh:
             fh.write("\n\n".join(sorted(found)))
         if not silent:
-            print(Color.GREEN(f"[+] js_sinks_advanced -> {len(found)} matches"))
+            print(Color.green(f"[+] js_sinks_advanced -> {len(found)} matches"))
     else:
         if not silent:
-            print(Color.RED("[-] No JS sinks found"))
+            print(Color.red("[-] No JS sinks found"))

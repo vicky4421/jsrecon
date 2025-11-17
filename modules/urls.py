@@ -29,7 +29,7 @@ def run_urls(data: str, out_dir: Path, include_domains=False, silent=False):
             with open(base / "domains.txt", "w", encoding="utf-8") as fh:
                 fh.write("\n".join(sorted(domains)))
         if not silent:
-            print(Color.GREEN(f"[+] urls -> {len(urls)} urls, {len(endpoints)} endpoints"))
+            print(Color.green(f"[+] urls -> {len(urls)} urls, {len(endpoints)} endpoints"))
     else:
         if not silent:
-            print(Color.RED("[-] No URLs or endpoints found"))
+            print(Color.red("[-] No URLs or endpoints found"))

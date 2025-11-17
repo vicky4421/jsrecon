@@ -23,7 +23,7 @@ def run_unprefixed(data: str, out_dir: Path, silent=False):
         with open(base / "unprefixed_api_keys.txt", "w", encoding="utf-8") as fh:
             fh.write("\n".join(sorted(matches)))
         if not silent:
-            print(Color.GREEN(f"[+] unprefixed_api_keys -> {len(matches)} matches"))
+            print(Color.green(f"[+] unprefixed_api_keys -> {len(matches)} matches"))
     else:
         if not silent:
-            print(Color.RED("[-] No unprefixed API keys found"))
+            print(Color.red("[-] No unprefixed API keys found"))

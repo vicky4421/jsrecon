@@ -76,7 +76,7 @@ def extract_patterns_from_block(block_text):
 def run_gf_pipeline(data: str, out_dir: Path, dump_path: Path, silent=False):
     blocks = parse_dump(dump_path)
     if not silent:
-        print(Color.YELLOW(f"[*] Parsed {len(blocks)} GF blocks"))
+        print(Color.yellow(f"[*] Parsed {len(blocks)} GF blocks"))
     # prepare compiled dict
     compiled_map = {}  # name -> list of (mode, compiled_or_tokens, orig_pat, flags)
     for name, block in blocks:
@@ -142,6 +142,6 @@ def run_gf_pipeline(data: str, out_dir: Path, dump_path: Path, silent=False):
                 fh.write("\n")
                 fh.write("\n".join(cleaned))
             if not silent:
-                print(Color.GREEN(f"[+] {name} -> {len(cleaned)} matches"))
+                print(Color.green(f"[+] {name} -> {len(cleaned)} matches"))
     if not any_found and not silent:
-        print(Color.RED("[-] No gf matches found"))
+        print(Color.red("[-] No gf matches found"))

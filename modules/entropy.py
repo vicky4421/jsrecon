@@ -41,7 +41,7 @@ def run_entropy(data: str, out_dir: Path, silent=False, entropy_threshold=4.2):
             for b,e in sorted(found, key=lambda x:-x[1]):
                 fh.write(f"{b} | {e}\n")
         if not silent:
-            print(Color.GREEN(f"[+] entropy_secrets -> {len(found)} matches"))
+            print(Color.green(f"[+] entropy_secrets -> {len(found)} matches"))
     else:
         if not silent:
-            print(Color.RED("[-] No entropy secrets found"))
+            print(Color.red("[-] No entropy secrets found"))

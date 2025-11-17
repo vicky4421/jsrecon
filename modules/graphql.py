@@ -24,7 +24,7 @@ def run_graphql(data: str, out_dir: Path, silent=False):
             for q in queries:
                 fh.write(q + "\n\n---\n\n")
         if not silent:
-            print(Color.GREEN(f"[+] graphql_queries -> {len(queries)} found"))
+            print(Color.green(f"[+] graphql_queries -> {len(queries)} found"))
     else:
         if not silent:
-            print(Color.RED("[-] No graphql queries found"))
+            print(Color.red("[-] No graphql queries found"))
