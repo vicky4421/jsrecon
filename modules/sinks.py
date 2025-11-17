@@ -3,6 +3,7 @@ Find JS sinks (DOM XSS candidates)
 """
 import re
 from pathlib import Path
+from modules.utils import Color
 
 SINKS = [
     r'innerHTML', r'outerHTML', r'document\.write', r'insertAdjacentHTML',
@@ -25,7 +26,7 @@ def run_sinks(data: str, out_dir: Path, silent=False):
         with open(base / "js_sinks_advanced.txt", "w", encoding="utf-8") as fh:
             fh.write("\n\n".join(sorted(found)))
         if not silent:
-            print(f"[+] js_sinks_advanced -> {len(found)} matches")
+            print(Color.GREEN(f"[+] js_sinks_advanced -> {len(found)} matches"))
     else:
         if not silent:
-            print("[-] No JS sinks found")
+            print(Color.RED("[-] No JS sinks found"))

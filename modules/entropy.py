@@ -4,6 +4,7 @@ Entropy-based secret detection
 """
 import re, math
 from pathlib import Path
+from modules.utils import Color
 
 def shannon_entropy(s: str) -> float:
     if not s:
@@ -40,7 +41,7 @@ def run_entropy(data: str, out_dir: Path, silent=False, entropy_threshold=4.2):
             for b,e in sorted(found, key=lambda x:-x[1]):
                 fh.write(f"{b} | {e}\n")
         if not silent:
-            print(f"[+] entropy_secrets -> {len(found)} matches")
+            print(Color.GREEN(f"[+] entropy_secrets -> {len(found)} matches"))
     else:
         if not silent:
-            print("[-] No entropy secrets found")
+            print(Color.RED("[-] No entropy secrets found"))

@@ -3,6 +3,23 @@ import re
 from urllib.parse import urlparse
 from pathlib import Path
 
+class Color:
+    RESET = "\033[0m"
+    RED = "\033[91m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    BLUE = "\033[94m"
+
+    @staticmethod
+    def red(t): return f"{Color.RED}{t}{Color.RESET}"
+    @staticmethod
+    def green(t): return f"{Color.GREEN}{t}{Color.RESET}"
+    @staticmethod
+    def yellow(t): return f"{Color.YELLOW}{t}{Color.RESET}"
+    @staticmethod
+    def blue(t): return f"{Color.BLUE}{t}{Color.RESET}"
+
+
 def extract_filename_from_url(url):
     try:
         path = urlparse(url).path

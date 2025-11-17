@@ -4,6 +4,7 @@ Simple GraphQL extractor:
 """
 import re
 from pathlib import Path
+from modules.utils import Color
 
 def run_graphql(data: str, out_dir: Path, silent=False):
     queries = set()
@@ -23,7 +24,7 @@ def run_graphql(data: str, out_dir: Path, silent=False):
             for q in queries:
                 fh.write(q + "\n\n---\n\n")
         if not silent:
-            print(f"[+] graphql_queries -> {len(queries)} found")
+            print(Color.GREEN(f"[+] graphql_queries -> {len(queries)} found"))
     else:
         if not silent:
-            print("[-] No graphql queries found")
+            print(Color.RED("[-] No graphql queries found"))

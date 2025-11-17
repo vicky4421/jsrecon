@@ -4,6 +4,7 @@ Extract URLs and (optionally) domains.
 import re
 from urllib.parse import urlparse
 from pathlib import Path
+from modules.utils import Color
 
 def run_urls(data: str, out_dir: Path, include_domains=False, silent=False):
     urls = set(re.findall(r'https?://[^\s"\'<>]+', data))
@@ -28,7 +29,7 @@ def run_urls(data: str, out_dir: Path, include_domains=False, silent=False):
             with open(base / "domains.txt", "w", encoding="utf-8") as fh:
                 fh.write("\n".join(sorted(domains)))
         if not silent:
-            print(f"[+] urls -> {len(urls)} urls, {len(endpoints)} endpoints")
+            print(Color.GREEN(f"[+] urls -> {len(urls)} urls, {len(endpoints)} endpoints"))
     else:
         if not silent:
-            print("[-] No URLs or endpoints found")
+            print(Color.RED("[-] No URLs or endpoints found"))

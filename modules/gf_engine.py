@@ -4,6 +4,7 @@ GF engine: loads gf_patterns_dump.txt, extracts patterns, auto-fix and runs them
 from pathlib import Path
 import re
 from . import auto_fix, utils
+from modules.utils import Color
 
 def locate_dump(user_path: Path):
     user = Path(user_path)
@@ -75,7 +76,7 @@ def extract_patterns_from_block(block_text):
 def run_gf_pipeline(data: str, out_dir: Path, dump_path: Path, silent=False):
     blocks = parse_dump(dump_path)
     if not silent:
-        print(f"[*] Parsed {len(blocks)} GF blocks")
+        print(Color.YELLOW(f"[*] Parsed {len(blocks)} GF blocks"))
     # prepare compiled dict
     compiled_map = {}  # name -> list of (mode, compiled_or_tokens, orig_pat, flags)
     for name, block in blocks:
@@ -141,6 +142,6 @@ def run_gf_pipeline(data: str, out_dir: Path, dump_path: Path, silent=False):
                 fh.write("\n")
                 fh.write("\n".join(cleaned))
             if not silent:
-                print(f"[+] {name} -> {len(cleaned)} matches")
+                print(Color.GREEN(f"[+] {name} -> {len(cleaned)} matches"))
     if not any_found and not silent:
-        print("[-] No gf matches found")
+        print(Color.RED("[-] No gf matches found"))

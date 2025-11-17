@@ -10,6 +10,7 @@ import argparse
 import sys
 import os
 from pathlib import Path
+from modules.utils import Color
 
 # silence DeprecationWarnings created when parsing patterns
 import warnings
@@ -46,7 +47,7 @@ else:
         parser.print_help()
         sys.exit(1)
     if not Path(input_arg).is_file():
-        print(f"[-] Local file not found: {input_arg}")
+        print(Color.RED(f"[-] Local file not found: {input_arg}"))
         sys.exit(1)
     save_name = Path(input_arg).name
     base = Path(input_arg).stem
@@ -54,7 +55,7 @@ else:
 out_root = Path(args.out)
 out_dir = out_root / base
 out_dir.mkdir(parents=True, exist_ok=True)
-print(f"[*] Output directory: {out_dir}")
+print(Color.BLUE(f"[*] Output directory: {out_dir}"))
 
 # read JS (from stdin or file)
 if piped:
@@ -66,7 +67,7 @@ else:
     js_input_path = input_arg
 
 # prepare data (safe splitting by default)
-print("[*] Preparing JS for scanning (safe splitting)...")
+print(Color.YELLOW("[*] Preparing JS for scanning (safe splitting)..."))
 with open(js_input_path, "r", encoding="utf-8", errors="ignore") as f:
     raw = f.read()
 
@@ -83,23 +84,23 @@ mods = [m.strip().lower() for m in args.modules.split(",") if m.strip()]
 # ensure gf runs first (since others may want gf outputs)
 if "gf" in mods:
     # run GF engine
-    print("[*] Running GF engine...")
+    print(Color.YELLOW("[*] Running GF engine..."))
     gf_engine.run_gf_pipeline(data, out_dir, dump_path, silent=args.silent)
 # run other modules if requested
 if "entropy" in mods:
-    print("[*] Running entropy-based secret detector...")
+    print(Color.YELLOW("[*] Running entropy-based secret detector..."))
     entropy.run_entropy(data, out_dir, silent=args.silent)
 if "graphql" in mods:
-    print("[*] Extracting GraphQL queries...")
+    print(Color.YELLOW("[*] Extracting GraphQL queries..."))
     graphql.run_graphql(data, out_dir, silent=args.silent)
 if "urls" in mods or "domains" in mods:
-    print("[*] Extracting URLs and domains...")
+    print(Color.YELLOW("[*] Extracting URLs and domains..."))
     urls.run_urls(data, out_dir, include_domains=("domains" in mods), silent=args.silent)
 if "sinks" in mods:
-    print("[*] Detecting JS sinks (XSS candidates)...")
+    print(Color.YELLOW("[*] Detecting JS sinks (XSS candidates)..."))
     sinks.run_sinks(data, out_dir, silent=args.silent)
 if "secrets" in mods:
-    print("[*] Running unprefixed API key detector...")
+    print(Color.YELLOW("[*] Running unprefixed API key detector..."))
     secrets.run_unprefixed(data, out_dir, silent=args.silent)
 
-print(f"\n[✔] Done. Results: {out_dir}")
+print(Color.BLUE(f"\n[✔] Done. Results: {out_dir}"))

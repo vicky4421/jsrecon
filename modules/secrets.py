@@ -3,6 +3,7 @@ Unprefixed API key detection: heuristic search for tokens in contexts like "key"
 """
 import re
 from pathlib import Path
+from modules.utils import Color
 
 def run_unprefixed(data: str, out_dir: Path, silent=False):
     # look for JSON-like assignments where value is long and looks like a key
@@ -22,7 +23,7 @@ def run_unprefixed(data: str, out_dir: Path, silent=False):
         with open(base / "unprefixed_api_keys.txt", "w", encoding="utf-8") as fh:
             fh.write("\n".join(sorted(matches)))
         if not silent:
-            print(f"[+] unprefixed_api_keys -> {len(matches)} matches")
+            print(Color.GREEN(f"[+] unprefixed_api_keys -> {len(matches)} matches"))
     else:
         if not silent:
-            print("[-] No unprefixed API keys found")
+            print(Color.RED("[-] No unprefixed API keys found"))
